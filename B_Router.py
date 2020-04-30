@@ -17,6 +17,11 @@ try:
 	device.conf.load(template_path='template.conf', template_vars = var_dict, merge = True)
 	success = device.conf.commit()
 	print("Success : {}".format(success))
+	test = device.rpc.get_lldp_neighbors_information()
+	test = device.rpc.get_lldp_neighbors_information()
+	info = test.findall("lldp-neighbor-information")
+	for info1 in info:
+		print("Local interface name is: {} \nRemote interface name is: {} \nRemote host name is: {} \n".format(info1[0].text, info1[4].text, info1[5].text))
 
 except (RpcError, ConnectError) as err:
 	print("\nError: " + repr(err))
