@@ -1,0 +1,35 @@
+// My Network Topology
+strict graph {
+	graph [splines=ortho]
+	node [nodesep=1.5 ranksep=1 shape=oval]
+	edge [dir=both]
+	router023
+	router022
+	router024
+	switch207
+	router021
+	edge [fontsize=10 headlabel="ge-0/0/2.0" taillabel="ge-0/0/3.0"]
+	router023 -- router022
+	edge [fontsize=10 headlabel="ge-0/0/2.0" taillabel="ge-0/0/1.0"]
+	router023 -- router024
+	edge [fontsize=10 headlabel="ge-0/0/37.0" taillabel="ge-0/0/0.0"]
+	router023 -- switch207
+	edge [fontsize=10 headlabel="ge-0/0/2.0" taillabel="ge-0/0/3.0"]
+	router024 -- router021
+	edge [fontsize=10 headlabel="ge-0/0/39.0" taillabel="ge-0/0/0.0"]
+	router024 -- switch207
+	edge [fontsize=10 headlabel="ge-0/0/1.0" taillabel="ge-0/0/2.0"]
+	router024 -- router023
+	edge [fontsize=10 headlabel="ge-0/0/1.0" taillabel="ge-0/0/1.0"]
+	router021 -- router022
+	edge [fontsize=10 headlabel="ge-0/0/3.0" taillabel="ge-0/0/2.0"]
+	router021 -- router024
+	edge [fontsize=10 headlabel="ge-0/0/41.0" taillabel="ge-0/0/0.0"]
+	router021 -- switch207
+	edge [fontsize=10 headlabel="ge-0/0/1.0" taillabel="ge-0/0/1.0"]
+	router022 -- router021
+	edge [fontsize=10 headlabel="ge-0/0/36.0" taillabel="ge-0/0/0.0"]
+	router022 -- switch207
+	edge [fontsize=10 headlabel="ge-0/0/3.0" taillabel="ge-0/0/2.0"]
+	router022 -- router023
+}
