@@ -5,7 +5,7 @@ from jnpr.junos.utils.config import Config
 from lxml import etree as etree
 from graphviz import Digraph
 
-devices = {"192.168.1.21": "A", "192.168.1.22": "B", "192.168.1.23": "C", "192.168.1.24": "D"}
+devices = {"192.168.1.21": "router021", "192.168.1.22": "router022", "192.168.1.23": "router023", "192.168.1.24": "router024"}
 router_dict = {}
 
 try:
