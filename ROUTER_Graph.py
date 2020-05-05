@@ -31,17 +31,14 @@ try:
             router_dict[local_host_name]["Remote_Host_Name"].append(info1[5].text)  # Remote Host Name
 
 
-    dot = Graph(comment='Network Topology', strict=True)
-    dot.attr('node', shape='circle')
+    dot = Graph(comment='Network Topology', format= 'png', strict=True)
+    dot.graph_attr['splines'] = 'ortho'
 
     for i in list(router_dict.keys()):
-        dot.node("i", i)
-
-    for i in range(3):
-        for j in range(3):
-            dot.edge(list(router_dict.keys())[i], router_dict[list(router_dict.keys())[i]]["Remote_Host_Name"][j],
-                     headlabel=router_dict[list(router_dict.keys())[i]]["Local_Interface_Name"][j],
-                     taillabel=router_dict[list(router_dict.keys())[i]]["Remote_Interface_Name"][j])
+        for j in range(len(router_dict[i]["Local_Interface_Name"])):
+            dot.attr('edge', headlabel=router_dict[i]["Local_Interface_Name"][j],
+                     taillabel=router_dict[i]["Remote_Interface_Name"][j]), fontsize = '10', dir = 'both')
+            dot.edge(i, router_dict[i]["Remote_Host_Name"][j])
 
     dot.view()
 
