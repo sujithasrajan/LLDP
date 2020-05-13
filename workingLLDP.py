@@ -7,7 +7,13 @@ from lxml import etree as etree
 import yaml
 import json 
 
-host_ip = ['192.168.1.21', '192.168.1.22', '192.168.1.23', '192.168.1.24']
+host_ip = ['192.168.1.35', '192.168.1.36', '192.168.1.37', '192.168.1.38','192.168.1.39','192.168.1.40']
+if_config = {'192.168.1.35': {'ge-0/0/1':'72.114.97.0/19', 'ge-0/0/2':'772.114.129.0/19'}, 
+	     '192.168.1.36': {'ge-0/0/1':'72.114.130.0/19', 'ge-0/0/2':'72.114.162.0/19'},
+	     '192.168.1.37': {'ge-0/0/1':'72.114.193.0/19', 'ge-0/0/2':'72.114.98.0/19', 'ge-0/0/3':'72.114.163.0/19','ge-0/0/4':'72.114.225.0/19'},
+	     '192.168.1.38': {'ge-0/0/1':'72.114.255.2/19', 'ge-0/0/2':'72.114.226.0/19'},
+	     '192.168.1.39': {'ge-0/0/1':'72.114.255.3/19', 'ge-0/0/2':'72.114.194.0/19', 'ge-0/0/3':'72.114.255.34/19'},
+	     '192.168.1.40': {'ge-0/0/1':'72.114.255.35/19'} }
 
 neighbor_info = {}
 info_dict = {}
@@ -51,6 +57,7 @@ try:
 		device = Device(host=i, user='labuser', password='Labuser', normalize=True)
 		device.open()
 		device.bind(conf=Config)
+		var_dict = {'if_config': if_config[i] }
 		device.conf.load(template_path='template_lldp.conf', template_vars = var_dict, merge = True)
 
 		success = device.conf.commit()
