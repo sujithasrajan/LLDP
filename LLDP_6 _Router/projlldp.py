@@ -8,12 +8,12 @@ import yaml
 import json 
 
 host_ip = ['192.168.1.35', '192.168.1.36', '192.168.1.37', '192.168.1.38','192.168.1.39','192.168.1.40']
-if_config = {'192.168.1.35': {'ge-0/0/1':'72.114.97.0/19', 'ge-0/0/2':'72.114.129.0/19'}, 
+if_conf = {'192.168.1.35': {'ge-0/0/1':'72.114.97.0/19', 'ge-0/0/2':'72.114.129.0/19'}, 
 	     '192.168.1.36': {'ge-0/0/1':'72.114.130.0/19', 'ge-0/0/2':'72.114.162.0/19'},
 	     '192.168.1.37': {'ge-0/0/1':'72.114.193.0/19', 'ge-0/0/2':'72.114.98.0/19', 'ge-0/0/3':'72.114.163.0/19','ge-0/0/4':'72.114.225.0/19'},
-	     '192.168.1.38': {'ge-0/0/1':'72.114.255.2/19', 'ge-0/0/2':'72.114.226.0/19'},
+	     '192.168.1.38': {'ge-0/0/1':'72.114.255.2/19', 'ge-0/0/3':'72.114.226.0/19'},
 	     '192.168.1.39': {'ge-0/0/1':'72.114.255.3/19', 'ge-0/0/2':'72.114.194.0/19', 'ge-0/0/3':'72.114.255.34/19'},
-	     '192.168.1.40': {'ge-0/0/1':'72.114.255.35/19'} }
+	     '192.168.1.40': {'ge-0/0/2':'72.114.255.35/19'} }
 
 neighbor_info = {}
 info_dict = {}
@@ -31,6 +31,8 @@ def make_topo(info_dict_list):
 			nodes.append(neighbor['Remote host name'])
 			edges.append([device['nodes'],neighbor['Remote host name'], neighbor['Local interface'], neighbor['Remote host interface']]) 
 		device_list.append((nodes,edges))
+	#print(device_list)
+       
 	#delete any repeated nodes and edges
 	nodes = []
 	edges = []
@@ -57,7 +59,9 @@ try:
 		device = Device(host=i, user='labuser', password='Labuser', normalize=True)
 		device.open()
 		device.bind(conf=Config)
-		var_dict = {'if_config': if_config[i] }
+		if_config = if_conf[i]
+		var_dict = {'if_config': if_config }
+		#print("var_dict",var_dict)
 		device.conf.load(template_path='template_lldp.conf', template_vars = var_dict, merge = True)
 
 		success = device.conf.commit()
@@ -74,6 +78,8 @@ try:
 				neighbor_info_list.append(neighbor_info)
 			info_dict = {'nodes':router[0].text , 'neighbor': (neighbor_info_list)}
 			info_dict_list.append(info_dict)
+		
+	#print("info_dict_list",info_dict_list)
 	dot = make_topo(info_dict_list)
 	dot.render(filename='MyTopology')
 
@@ -83,4 +89,3 @@ except (RpcError, ConnectError) as err:
 
 finally:
 	device.close()
-
