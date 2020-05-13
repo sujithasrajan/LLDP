@@ -1,0 +1,49 @@
+// My Network Topology
+strict graph {
+	graph [splines=ortho]
+	router035 [shape=circle]
+	router037 [shape=circle]
+	router036 [shape=circle]
+	switch226 [shape=circle]
+	router038 [shape=circle]
+	router039 [shape=circle]
+	router040 [shape=circle]
+	edge [dir=both fontsize=10 headlabel="ge-0/0/1.0" taillabel="ge-0/0/2.0"]
+	router035 -- router037
+	edge [dir=both fontsize=10 headlabel="ge-0/0/2.0" taillabel="ge-0/0/1.0"]
+	router035 -- router036
+	edge [dir=both fontsize=10 headlabel="ge-0/0/0.0" taillabel="ge-0/0/10.0"]
+	router035 -- switch226
+	edge [dir=both fontsize=10 headlabel="ge-0/0/1.0" taillabel="ge-0/0/2.0"]
+	router036 -- router035
+	edge [dir=both fontsize=10 headlabel="ge-0/0/2.0" taillabel="ge-0/0/3.0"]
+	router036 -- router037
+	edge [dir=both fontsize=10 headlabel="ge-0/0/0.0" taillabel="ge-0/0/8.0"]
+	router036 -- switch226
+	edge [dir=both fontsize=10 headlabel="ge-0/0/2.0" taillabel="ge-0/0/1.0"]
+	router037 -- router035
+	edge [dir=both fontsize=10 headlabel="ge-0/0/4.0" taillabel="ge-0/0/3.0"]
+	router037 -- router038
+	edge [dir=both fontsize=10 headlabel="ge-0/0/3.0" taillabel="ge-0/0/2.0"]
+	router037 -- router036
+	edge [dir=both fontsize=10 headlabel="ge-0/0/0.0" taillabel="ge-0/0/7.0"]
+	router037 -- switch226
+	edge [dir=both fontsize=10 headlabel="ge-0/0/1.0" taillabel="ge-0/0/2.0"]
+	router037 -- router039
+	edge [dir=both fontsize=10 headlabel="ge-0/0/3.0" taillabel="ge-0/0/4.0"]
+	router038 -- router037
+	edge [dir=both fontsize=10 headlabel="ge-0/0/0.0" taillabel="ge-0/0/6.0"]
+	router038 -- switch226
+	edge [dir=both fontsize=10 headlabel="ge-0/0/1.0" taillabel="ge-0/0/1.0"]
+	router038 -- router039
+	edge [dir=both fontsize=10 headlabel="ge-0/0/3.0" taillabel="ge-0/0/2.0"]
+	router039 -- router040
+	edge [dir=both fontsize=10 headlabel="ge-0/0/1.0" taillabel="ge-0/0/1.0"]
+	router039 -- router038
+	edge [dir=both fontsize=10 headlabel="ge-0/0/2.0" taillabel="ge-0/0/1.0"]
+	router039 -- router037
+	edge [dir=both fontsize=10 headlabel="ge-0/0/0.0" taillabel="ge-0/0/4.0"]
+	router039 -- switch226
+	edge [dir=both fontsize=10 headlabel="ge-0/0/0.0" taillabel="ge-0/0/5.0"]
+	router040 -- switch226
+}
