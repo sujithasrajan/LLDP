@@ -51,6 +51,8 @@ try:
 		device = Device(host=i, user='labuser', password='Labuser', normalize=True)
 		device.open()
 		device.bind(conf=Config)
+		device.conf.load(template_path='template_lldp.conf', template_vars = var_dict, merge = True)
+
 		success = device.conf.commit()
 		print("Success : {}".format(success))
 		test = device.rpc.get_lldp_neighbors_information()
