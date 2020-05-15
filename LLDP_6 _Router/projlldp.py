@@ -3,6 +3,7 @@ from jnpr.junos.exception import ConnectError
 from jnpr.junos.exception import RpcError
 from jnpr.junos.utils.config import Config
 from graphviz import Graph
+#from graphviz import Source
 from lxml import etree as etree
 import yaml
 import json 
@@ -31,8 +32,6 @@ def make_topo(info_dict_list):
 			nodes.append(neighbor['Remote host name'])
 			edges.append([device['nodes'],neighbor['Remote host name'], neighbor['Local interface'], neighbor['Remote host interface']]) 
 		device_list.append((nodes,edges))
-	#print(device_list)
-       
 	#delete any repeated nodes and edges
 	nodes = []
 	edges = []
@@ -42,14 +41,16 @@ def make_topo(info_dict_list):
 				nodes.append(node)
 		for edge in var[1]:
 			edges.append(edge)
+	print(nodes)
+	print(edges)
 	#graph creation
 	dot= Graph(comment = "My Network Topology" , format = 'png', strict = True)
 	dot.graph_attr['splines'] = 'ortho'
 	for i in nodes:
-		dot.node(i, shape = 'circle')
+		dot.node(i, shape = 'oval')
 	for i in edges:
-		dot.attr('edge', headlabel=i[2], taillabel=i[3], fontsize = '10', dir = 'both')
-		dot.edge(i[0], i[1])
+		dot.edge(i[0], i[1], headlabel=i[2], taillabel=i[3], fontsize = '10' )
+		
 	return dot
 	
 
@@ -59,11 +60,8 @@ try:
 		device = Device(host=i, user='labuser', password='Labuser', normalize=True)
 		device.open()
 		device.bind(conf=Config)
-		if_config = if_conf[i]
-		var_dict = {'if_config': if_config }
-		#print("var_dict",var_dict)
-		device.conf.load(template_path='template_lldp.conf', template_vars = var_dict, merge = True)
-
+		var_dict = {'if_config': if_config[i] }
+		device.conf.load(template_path='temp1.conf', template_vars = var_dict, merge = True)
 		success = device.conf.commit()
 		print("Success : {}".format(success))
 		test = device.rpc.get_lldp_neighbors_information()
@@ -78,10 +76,9 @@ try:
 				neighbor_info_list.append(neighbor_info)
 			info_dict = {'nodes':router[0].text , 'neighbor': (neighbor_info_list)}
 			info_dict_list.append(info_dict)
-		
-	#print("info_dict_list",info_dict_list)
 	dot = make_topo(info_dict_list)
-	dot.render(filename='MyTopology')
+	#print(dot.source)
+	dot.render(filename='MySampleTopo')
 
 
 except (RpcError, ConnectError) as err:
