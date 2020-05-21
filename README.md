@@ -13,4 +13,4 @@ After completion, you can see the output graph image and layout command file in 
 4. MyNetworkTopology. -> Layout command file
 
 
-![FLOW/STATE DIAGRAM](https://github.com/sujithasrajan/LLDP/blob/master/CODE_FLOW.pdf)
+![FLOW/STATE DIAGRAM](https://github.com/sujithasrajan/LLDP/blob/master/flow-diagram.png)
